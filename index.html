@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>new vue js</title>
+    </head>
+    <body>
+        <div id="app">
+          <h1>git repo</h1>
+
+          <input type="text" v-model="username" placeholder="Username">
+          <button @click="gitrepo">Get repo</button>
+           <div v-for="repo in repos">
+               {{repo.name}}
+           </div> 
+         
+        
+
+          
+
+        </div>
+
+
+        <script src="js/vue.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+           
+            var vm=new Vue({
+                el:'#app',
+               
+                data:{
+                    username:'',
+                    repos:''
+                  
+                   
+                },
+                methods:{
+                gitrepo:function(){
+                    return axios.get(`https://api.github.com/users/${this.username}/repos`
+                    ).then(response => {
+                        this.repos =response.data
+
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
+                },
+               
+               
+
+            })
+        
+        
+        </script>
+        <style>
+            body{
+                background-color: blueviolet;
+                
+            }
+            #app{
+                text-align: center;
+    margin-top: 50px;
+            }
+            input{
+                
+                border: 3px solid darkgrey;
+                padding: 8px;
+            }
+            button{
+                border-radius: 3px;
+    border: 3px solid darkgray;
+    color: chocolate;
+    font-weight: 800;
+    font-size: 20px;
+    padding: 3px;
+            }
+           
+        
+        </style>
+    </body>
+
+</html>
